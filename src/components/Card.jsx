@@ -1,4 +1,5 @@
-function Card({ title, imageUrl, price }) {
+function Card({ title, imageUrl, price, onClick }) {
+
   return (
     <div className="card">
       <div className="favorite">
@@ -11,7 +12,8 @@ function Card({ title, imageUrl, price }) {
           <span>Цена:</span>
           <b>{price} руб.</b>
         </div>
-        <button className="button">
+        <button className="button"
+          onClick={onClick} >
           <img width={11} height={11} src="/img/plus.svg" alt="Plus" />
         </button>
       </div>

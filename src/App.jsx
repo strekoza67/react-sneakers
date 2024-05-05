@@ -41,10 +41,11 @@ function App() {
 
         <div className="d-flex">
           {
-            sneakers.map((sneaker) => (
-              <Card title={sneaker.title}
-                imageUrl={sneaker.imageUrl}
-                price={sneaker.price} />
+            sneakers.map((obj) => (
+              <Card title={obj.title}
+                imageUrl={obj.imageUrl}
+                price={obj.price}
+                onClick={() => console.log(obj)} />
             ))
           }
         </div>
