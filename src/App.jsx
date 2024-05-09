@@ -1,35 +1,26 @@
 import Card from './components/Card';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
-
-const sneakers = [
-  {
-    title: 'Мужские Кроссовки Nike Blazer Mid Suede',
-    imageUrl: '/img/sneakers/1.jpg',
-    price: "12 999",
-  },
-  {
-    title: 'Мужские Кроссовки Nike Air Max 270',
-    imageUrl: '/img/sneakers/2.jpg',
-    price: "13 699",
-  },
-  {
-    title: 'Мужские Кроссовки Nike Blazer Mid Suede',
-    imageUrl: '/img/sneakers/3.jpg',
-    price: "8 499",
-  },
-  {
-    title: 'Кроссовки Puma X Aka Boku Future Rider',
-    imageUrl: '/img/sneakers/4.jpg',
-    price: "8 999",
-  },
-];
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [items, setItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [cartOpen, setCartOpen] = useState(false);
+
+  useEffect(() => {
+    fetch('https://663c478b17145c4d8c35a86c.mockapi.io/items').then(res => {
+      return res.json();
+    }).then(res => {
+      setItems(res);
+    })
+  }, []);
+
   return (
     <div className="wrapper clear">
-      <Drawer />
-      <Header />
+      {cartOpen && <Drawer onCartClose={() => setCartOpen(false)} />}
+      <Header onCartOpen={() => setCartOpen(true)} />
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
           <h1>Все кроссовки</h1>
@@ -39,13 +30,14 @@ function App() {
           </div>
         </div>
 
-        <div className="d-flex">
+        <div className="d-flex flex-wrap">
           {
-            sneakers.map((obj) => (
-              <Card title={obj.title}
-                imageUrl={obj.imageUrl}
-                price={obj.price}
-                onClick={() => console.log(obj)} />
+            items.map((item) => (
+              <Card title={item.title}
+                imageUrl={item.imageUrl}
+                price={item.price}
+                onClickFavourite={() => console.log('Добавлено в закладки')}
+              />
             ))
           }
         </div>
