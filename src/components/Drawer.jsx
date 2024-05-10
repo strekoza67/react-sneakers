@@ -1,6 +1,6 @@
 import CartItem from "./CartItem";
 
-function Drawer({ onCartClose, items = [] }) {
+function Drawer({ onCartClose, cartItems }) {
   return (
     <div className="overlay">
       <div className="drawer">
@@ -9,9 +9,15 @@ function Drawer({ onCartClose, items = [] }) {
         </h2>
 
         <div className="items">
-          { }
-          <CartItem />
-
+          {cartItems &&
+            cartItems.map((cartItem, id) => (
+              <CartItem key={id}
+                title={cartItem.title}
+                imageUrl={cartItem.imageUrl}
+                price={cartItem.price}
+              />
+            ))
+          }
         </div>
 
         <div className="cartTotalBlock">

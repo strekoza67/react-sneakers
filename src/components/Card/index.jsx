@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './Card.module.scss';
 
-function Card({ title, imageUrl, price, onClickFavourite }) {
+function Card({ title, imageUrl, price, onClickFavourite, onPlus }) {
 
   const [isChecked, setChecked] = useState(false);
 
   const onClickPlus = () => {
+    onPlus({ title, imageUrl, price });
     setChecked(!isChecked);
   }
 
